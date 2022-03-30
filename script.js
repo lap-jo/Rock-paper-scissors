@@ -1,56 +1,72 @@
-//initial scores
+//iniatiale scores 
 let playerScore = 0;
 let computerScore = 0;
 let draw = 0;
-let win = " You: " + playerScore + 1  + " Compter: " + computerScore;
-let loss = "You: " + playerScore + " Computer: " + computerScore; 
-
-//1.
 //function for computers play
 function computerPlay() {
-  //choices ["rock", "paper", "scissors"]
-  let random = Math.random();
-  //return pickOne;
-  if (random <= 0.333) {
-    return "rock";
-  } else if (random >= 0.666) {
+  let chanceOfPick = Math.random();
+  if (chanceOfPick <= 0.333) {
+    return "rock";  
+  } else if (chanceOfPick >= 0.666) {
     return "paper";
   } else {
   return "scissors";
   }
 }
 
-//2.
-/*function plays one round of rock paper scissors
-  contains 2 parameter(playerSelection & computerSelection) 
-  & declares winner of said round from given parameter     */
+
+/*function plays one round of rock paper scissorscontains 2 parameter(playerSel
+  ection & computerSelection)*/ 
   function oneRound(playerSelection, computerSelection) {
-    if (playerSelection.toLowerCase() === computerSelection) {
-      return "Tie ";
+    //playersSelection if set to lower case to create case insensitivity
+    if (playerSelection.toLowerCase() === computerSelection) { 
+      draw++;  
+      return "Tie";
     } else if (playerSelection.toLowerCase() === "rock" && computerSelection === "paper") {
-      return "You win\n" + win;
+      playerScore++;
+      return "You win";
     } else if (playerSelection.toLowerCase() === "rock" && computerSelection === "scissors") {
-      return "Computer wins\n" + loss;
+      computerScore++;
+      return "Computer wins";
     }  else if (playerSelection.toLowerCase() === "paper" && computerSelection === "rock") {
+      playerScore++;
       return "You win";
     } else if (playerSelection.toLowerCase() === "paper" && computerSelection === "scissors") {
+      computerScore++;
       return "Computer wins";
     }  else if (playerSelection.toLowerCase() === "scissors" && computerSelection === "paper") {
+      playerScore++;
       return "You win";
     } else if (playerSelection.toLowerCase() === "scissors" && computerSelection === "rock") {
-      return "Computer wins";
-    }
+      computerScore++;
+      return "Computer wins" + computerScore;
+    } 
   }
-//parameter function is case-insensitive
-//NOTE: function should return and not console.log
-const playerSelection ="rock";
-const computerSelection = computerPlay()
-console.log(oneRound(playerSelection, computerSelection))
-//3.
-//function called game() 
-//const playerSelection = prompt("rock, paper, or scissors");
-//const computerSelection = computerPlay();
 
+//function plays 1 round 
+function game() {
+  playerSelection = prompt("Rock, Paper, or Scissors?");
+  let computerSelection = computerPlay();
+  return oneRound(playerSelection, computerSelection);
+}
+
+//function to store the scores after aech round
+function winner() {
+  if (playerScore > computerScore) {
+    return "Winner!!!!!!!!!";
+  } else if (playerScore < computerScore) {
+    return "Sigh, Better luck next time";
+  } else {
+    return "Stale mate";
+  }
+}
+
+//the function game() is called 5 times with a for-loop
+for (let i=0; i< 5; i++) {
+  console.log(game());
+}
+//displays the final winner
+console.log(winner());
 
 //insert previous function into game
 //this function should keep the scores and reports winner at the end with console.log
